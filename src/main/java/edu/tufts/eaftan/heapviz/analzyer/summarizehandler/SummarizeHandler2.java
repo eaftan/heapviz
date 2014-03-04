@@ -285,7 +285,7 @@ public class SummarizeHandler2 extends NullRecordHandler {
   }
 
   public void instanceDump(long objId, int stackTraceSerialNum,
-      long classObjId, Value[] instanceFieldValues) {
+      long classObjId, Value<?>[] instanceFieldValues) {
 
     if (instanceMap.get(objId) == null) {
       ObjectInstance newInstance = new ObjectInstance();
@@ -313,7 +313,7 @@ public class SummarizeHandler2 extends NullRecordHandler {
   }
 
   public void primArrayDump(long objId, int stackTraceSerialNum,
-      byte elemType, Value[] elems) {
+      byte elemType, Value<?>[] elems) {
 
     if (instanceMap.get(objId) == null) {
       PrimArray newArray = new PrimArray();
