@@ -30,14 +30,16 @@ import org.junit.Test;
 
 import edu.tufts.eaftan.heapviz.analzyer.summarizehandler.SummarizeHandler;
 import edu.tufts.eaftan.heapviz.summarizer.AllocSiteSummarizer;
-import edu.tufts.eaftan.heapviz.summarizer.Summarizer;
+import edu.tufts.eaftan.heapviz.summarizer.IdentitySummarizer;
+import edu.tufts.eaftan.heapviz.summarizer.Softvis2010Summarizer;
+import edu.tufts.eaftan.heapviz.summarizer.TypeGraphSummarizer;
 import edu.tufts.eaftan.hprofparser.handler.RecordHandler;
 import edu.tufts.eaftan.hprofparser.parser.HprofParser;
 
 /**
- * Runs SummarizeHandler on the test file and ensures it doesn't crash.
+ * Runs all summarizers on the test file and ensures they don't crash.
  */
-public class AllExampleHandlersTest {
+public class SummarizersTest {
 
   private static final String hprofFileRelativePath = "java.hprof";
 
@@ -55,10 +57,32 @@ public class AllExampleHandlersTest {
 
   @Test
   public void allocSiteSummarizerDoesntCrash() throws Exception {
-    Summarizer allocSiteSummarizer = new AllocSiteSummarizer();
-    RecordHandler summarizeHandler = new SummarizeHandler(true, false, true, allocSiteSummarizer);
+    RecordHandler summarizeHandler = new SummarizeHandler(
+        true, false, true, new AllocSiteSummarizer());
     runParser(summarizeHandler);
   }
+
+  @Test
+  public void identitySummarizerDoesntCrash() throws Exception {
+    RecordHandler summarizeHandler = new SummarizeHandler(
+        true, false, true, new IdentitySummarizer());
+    runParser(summarizeHandler);
+  }
+
+  @Test
+  public void softvis2010SummarizerDoesntCrash() throws Exception {
+    RecordHandler summarizeHandler = new SummarizeHandler(
+        true, false, true, new Softvis2010Summarizer());
+    runParser(summarizeHandler);
+  }
+
+  @Test
+  public void typeGraphSummarizerDoesntCrash() throws Exception {
+    RecordHandler summarizeHandler = new SummarizeHandler(
+        true, false, true, new TypeGraphSummarizer());
+    runParser(summarizeHandler);
+  }
+
 
   private static String getAbsolutePathForResource(String relativePath) throws URISyntaxException {
     return new File(ClassLoader.getSystemResource(relativePath).toURI()).getAbsolutePath();
