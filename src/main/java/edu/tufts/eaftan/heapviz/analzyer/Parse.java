@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.tufts.eaftan.heapviz.analzyer.summarizehandler.SummarizeHandler2;
+import edu.tufts.eaftan.heapviz.analzyer.summarizehandler.SummarizeHandler;
 import edu.tufts.eaftan.heapviz.summarizer.AllocSiteSummarizer;
 import edu.tufts.eaftan.heapviz.summarizer.IdentitySummarizer;
 import edu.tufts.eaftan.heapviz.summarizer.Softvis2010Summarizer;
@@ -104,7 +104,7 @@ public class Parse {
     	summarizer = new Softvis2010Summarizer();
     }
 
-    RecordHandler handler = new SummarizeHandler2(doSummary, printDomEdges, printPtrEdges, summarizer);
+    RecordHandler handler = new SummarizeHandler(doSummary, printDomEdges, printPtrEdges, summarizer);
     HprofParser parser = new HprofParser(handler);
 
     try {

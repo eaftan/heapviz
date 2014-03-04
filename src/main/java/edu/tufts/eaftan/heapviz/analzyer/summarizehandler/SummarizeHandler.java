@@ -32,7 +32,7 @@ import edu.tufts.eaftan.heapviz.util.Graph;
 import edu.tufts.eaftan.hprofparser.parser.datastructures.*;
 import edu.tufts.eaftan.hprofparser.handler.NullRecordHandler;
 
-public class SummarizeHandler2 extends NullRecordHandler {
+public class SummarizeHandler extends NullRecordHandler {
 
   /* Instance variables */
 
@@ -119,7 +119,7 @@ public class SummarizeHandler2 extends NullRecordHandler {
   }
   */
 
-  public SummarizeHandler2(boolean doSummary, boolean printDomEdges,
+  public SummarizeHandler(boolean doSummary, boolean printDomEdges,
       boolean printPtrEdges, Summarizer sum) {
     loadBlacklist("sun_blacklist.txt");
     this.doSummary = doSummary;
