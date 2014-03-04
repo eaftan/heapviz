@@ -1,7 +1,5 @@
 Java Heap Analyzer
-
 Eddie Aftandilian (eaftan@cs.tufts.edu)
-12/6/2010
 
 This is the front end to our heap visualization system, Heapviz.
 
@@ -13,16 +11,28 @@ reference is an edge
 4) optionally summarizes the graph
 5) outputs the graph in GraphML format
 
-I have provided a sample HPROF heap dump file in bh.hprof.  Output is stored
-in the images directory.
+I provide a sample heap dump from Dacapo antlr in the file java.hprof.
 
 Running:
 1. Type this command at the prompt:
    % java edu.tufts.cs.eaftan.heapvis.Parse bh.hprof
-   "bh.hprof" is the name of an Hprof heap dump file.  If the heap dump file 
+   "java.hprof" is the name of an Hprof heap dump file.  If the heap dump file
    contains more than one heap dump, we will generate GraphML for both.
 
    You may optionally give the option "-nosummary" to skip the summarization
    step:
    % java edu.tufts.cs.eaftan.heapvis.Parse -nosummary bh.hprof
 
+The build uses Maven (http://maven.apache.org/).  You can build it with the
+following command:
+$ maven compile
+
+To produce a binary heap dump from the Oracle JVM, use the following command:
+java -agentlib:hprof=heap=dump,format=b ToBeProfiledClass
+
+This will dump the heap at the end of program execution.  See the 
+documentation referenced above to see how to produce heap dumps at other 
+points in program execution.
+
+This code is released under the Apache 2.0 license.  See the LICENSE file in
+this directory for details.
