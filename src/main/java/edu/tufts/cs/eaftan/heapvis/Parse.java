@@ -19,21 +19,24 @@ import java.io.*;
 
 import edu.tufts.cs.eaftan.heapvis.handler.*;
 import edu.tufts.cs.eaftan.heapvis.handler.summarizehandler.SummarizeHandler2;
-import edu.tufts.cs.eaftan.heapvis.parser.HprofParser;
+import edu.tufts.eaftan.hprofparser.handler.RecordHandler;
+import edu.tufts.eaftan.hprofparser.parser.HprofParser;
+
 import java.util.Map;
 import java.util.HashMap;
+
 import edu.tufts.cs.eaftan.heapvis.summarizer.*;
 
 
 public class Parse {
 
   public static void main(String[] args) {
- 
+
     String inputfile;
     boolean doSummary = true, printDomEdges = true, printPtrEdges = true;
     int i;
-    
-    
+
+
     /*
     for (i=0; i<args.length-1; i++) {
       if (args[i].equals("-nosummary")) {
@@ -59,7 +62,7 @@ public class Parse {
       System.err.println("No input file provided");
       System.err.println("Usage: java Parser [-nosummary] [-printEdges={pointer,ownership,both}] inputfile");
       System.exit(1);
-      
+
     }*/
     inputfile = args[args.length-1];
 
@@ -67,18 +70,18 @@ public class Parse {
     //RecordHandler handler = new PrintHandler();
     // RecordHandler handler = new StaticPrintHandler();
     Summarizer summarizer = null;
-    
-    
+
+
     Map<String,String> argmap = parseCommandLineArgs(args);
-    
-    
-    
+
+
+
     System.out.println(argmap.get("-s"));
     if(argmap.get("-s") != null){
 	    if(argmap.get("-s").equals("SoftVis2010")){
 	    	System.out.println("Using SoftVis2010 summarizer.");
 	    	summarizer = new Softvis2010Summarizer();
-	    	
+
 	    }
 	    else if (argmap.get("-s").equals("AllocSite")){
 	    	System.out.println("Using AllocSite summarzier.");
@@ -86,7 +89,7 @@ public class Parse {
 	    }
 	    else if (argmap.get("-s").equals("TypeGraph")){
 	    	System.out.println("Using TypeGraph summarizer.");
-	    	summarizer = new TypeGraphSummarizer();    	
+	    	summarizer = new TypeGraphSummarizer();
 	    } else if (argmap.get("-s").equals("Identity")){
 	    	System.out.println("Using Identity summarizer");
 	    	summarizer = new IdentitySummarizer();
@@ -96,7 +99,7 @@ public class Parse {
     	System.out.println("No summarizer specified; defaulting to SoftVis2010.");
     	summarizer = new Softvis2010Summarizer();
     }
-    
+
     RecordHandler handler = new SummarizeHandler2(doSummary, printDomEdges, printPtrEdges, summarizer);
     HprofParser parser = new HprofParser(handler);
 
@@ -112,23 +115,23 @@ public class Parse {
     }
 
   }
-  
+
   private static HashMap<String,String> parseCommandLineArgs(String[] args){
 	    HashMap<String,String> argMap = new HashMap<String,String>();
-	                
+
 	    for(int i =0; i < args.length; i++){
 	      if(args[i].equals("-s")){
 	        argMap.put("-s", args[++i]);
 	      }
 	      else{
 	        //TODO: Throw some kinda exception...
-	      }         
+	      }
 	    }
 	    return argMap;
 	  }
 
-  
-  
-  
+
+
+
 
 }
