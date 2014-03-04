@@ -21,11 +21,8 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.net.URISyntaxException;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import edu.tufts.eaftan.heapviz.analzyer.summarizehandler.SummarizeHandler;
@@ -42,18 +39,6 @@ import edu.tufts.eaftan.hprofparser.parser.HprofParser;
 public class SummarizersTest {
 
   private static final String hprofFileRelativePath = "java.hprof";
-
-  @Before
-  public void setUp() {
-    PrintStream throwawayPrintStream = new PrintStream(new OutputStream() {
-      @Override
-      public void write(int b) throws IOException {
-        // do nothing
-      }
-    });
-    System.setOut(throwawayPrintStream);
-    System.setErr(throwawayPrintStream);
-  }
 
   @Test
   public void allocSiteSummarizerDoesntCrash() throws Exception {

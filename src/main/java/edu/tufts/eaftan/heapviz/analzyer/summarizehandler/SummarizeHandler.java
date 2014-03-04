@@ -24,6 +24,7 @@
 package edu.tufts.eaftan.heapviz.analzyer.summarizehandler;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.util.*;
 
 import edu.tufts.eaftan.heapviz.summarizer.*;
@@ -494,21 +495,12 @@ public class SummarizeHandler extends NullRecordHandler {
 
   }
 
-
-  /* Handler for end of file */
-
-  /**
-   * Called at EOF.  Display the PNGs we have created.
-   */
-  public void finished() {
-    //ExecState.showImages(heapImages);
-  }
-
   /* Private methods */
-  private void loadBlacklist(String fn) {
+  private void loadBlacklist(String blacklistFileName) {
+    // TODO(eaftan): try-with-resources to close BufferedReader properly
     try {
-
-      BufferedReader in = new BufferedReader(new FileReader(fn));
+      File blackList = new File(ClassLoader.getSystemResource(blacklistFileName).toURI());
+      BufferedReader in = new BufferedReader(new FileReader(blackList));
       String line;
       while ((line = in.readLine()) != null) {
         line = line.trim();
@@ -540,12 +532,14 @@ public class SummarizeHandler extends NullRecordHandler {
           }
         }
       }
-
+      in.close();
     } catch (FileNotFoundException e) {
       System.err.println("File not found: " + e);
     } catch (IOException e) {
       System.err.println("IOException: " + e);
       System.exit(1);
+    } catch (URISyntaxException e) {
+      // TODO(eaftan): better exception handling. we should never be calling System.exit.
     }
 
   }
