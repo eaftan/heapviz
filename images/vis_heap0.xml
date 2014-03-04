@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+
+<key id="type" for="node" attr.name="type" attr.type="string"/>
+<key id="members" for="node" attr.name="members" attr.type="string"/>
+<key id="count" for="node" attr.name="count" attr.type="int"/>
+<key id="size" for="node" attr.name="size" attr.type="int"/>
+<key id="types" for="node" attr.name="types" attr.type="string"/>
+<key id="allocContext" for="node" attr.name="allocContext" attr.type="string"/>
+<key id="collapsed" for="node" attr.name="collapsed" attr.type="boolean">
+  <default>false</default>
+</key>
+<key id="label" for="edge" attr.name="label" attr.type="string"/>
+<key id="ownership" for="edge" attr.name="ownership" attr.type="boolean">
+  <default>false</default>
+</key>
+<key id="pointer" for="edge" attr.name="pointer" attr.type="boolean">
+  <default>true</default>
+</key>
+
+<graph edgedefault="directed">
+
+<node id="-5012855334518289960">
+  <data key="type">Cell</data>
+  <data key="count">6</data>
+  <data key="size">96</data>
+  <data key="types">Cell</data>
+  <data key="allocContext">Node.&lt;init&gt;(Node.java:5)\nCell.&lt;init&gt;(Cell.java:6)\nCell.makeCell(Cell.java:21)\nBody.loadTree(Body.java:99)\n</data>
+</node>
+<node id="1374192621643433549">
+  <data key="type">MathVector</data>
+  <data key="count">6</data>
+  <data key="size">24</data>
+  <data key="types">MathVector</data>
+  <data key="allocContext">MathVector.&lt;init&gt;(MathVector.java:7)\nMathVector.makeMathVector(MathVector.java:21)\nCell.hackcofm(Cell.java:60)\nCell.hackcofm(Cell.java:65)\n</data>
+</node>
+<node id="2816743482925311712">
+  <data key="type">java.util.Vector</data>
+  <data key="count">6</data>
+  <data key="size">96</data>
+  <data key="types">java.util.Vector</data>
+  <data key="allocContext">java.util.AbstractCollection.&lt;init&gt;(AbstractCollection.java:49)\njava.util.AbstractList.&lt;init&gt;(AbstractList.java:59)\njava.util.Vector.&lt;init&gt;(Vector.java:107)\njava.util.Vector.&lt;init&gt;(Vector.java:124)\n</data>
+</node>
+<node id="0">
+  <data key="type">Fake root</data>
+  <data key="count">1</data>
+  <data key="size">0</data>
+  <data key="types">Fake root</data>
+</node>
+<node id="-4518113060967046006">
+  <data key="type">Body</data>
+  <data key="count">16</data>
+  <data key="size">512</data>
+  <data key="types">Body</data>
+  <data key="allocContext">Node.&lt;init&gt;(Node.java:5)\nBody.&lt;init&gt;(Body.java:2)\nBody.makeBody(Body.java:15)\nBTree.createTestData(BTree.java:59)\n</data>
+</node>
+<node id="1342178631">
+  <data key="type">Cell</data>
+  <data key="count">1</data>
+  <data key="size">16</data>
+  <data key="types">Cell</data>
+  <data key="members">mass:70:edu.tufts.cs.eaftan.heapvis.parser.datastructures.DoubleValue@15ded0fd</data>
+  <data key="allocContext">Node.&lt;init&gt;(Node.java:5)\nCell.&lt;init&gt;(Cell.java:6)\nCell.makeCell(Cell.java:21)\nBody.loadTree(Body.java:99)\n</data>
+</node>
+<node id="1342178635">
+  <data key="type">java.lang.Object[]</data>
+  <data key="count">1</data>
+  <data key="size">32</data>
+  <data key="types">java.lang.Object[]</data>
+  <data key="allocContext">java.util.Vector.&lt;init&gt;(Vector.java:111)\njava.util.Vector.&lt;init&gt;(Vector.java:124)\nCell.makeCell(Cell.java:23)\nBody.loadTree(Body.java:99)\n</data>
+</node>
+<node id="1342178634">
+  <data key="type">java.util.Vector</data>
+  <data key="count">1</data>
+  <data key="size">16</data>
+  <data key="types">java.util.Vector</data>
+  <data key="members">capacityIncrement:66:edu.tufts.cs.eaftan.heapvis.parser.datastructures.IntValue@fd7ad1celementCount:67:edu.tufts.cs.eaftan.heapvis.parser.datastructures.IntValue@5265a77fmodCount:67:edu.tufts.cs.eaftan.heapvis.parser.datastructures.IntValue@18a61164</data>
+  <data key="allocContext">java.util.AbstractCollection.&lt;init&gt;(AbstractCollection.java:49)\njava.util.AbstractList.&lt;init&gt;(AbstractList.java:59)\njava.util.Vector.&lt;init&gt;(Vector.java:107)\njava.util.Vector.&lt;init&gt;(Vector.java:124)\n</data>
+</node>
+<node id="556296236881069008">
+  <data key="type">double[]</data>
+  <data key="count">6</data>
+  <data key="size">144</data>
+  <data key="types">double[]</data>
+  <data key="allocContext">MathVector.makeMathVector(MathVector.java:22)\nCell.hackcofm(Cell.java:60)\nCell.hackcofm(Cell.java:65)\nBTree.makeTree(BTree.java:162)\n</data>
+</node>
+<node id="8022358653743579549">
+  <data key="type">java.lang.Object[]</data>
+  <data key="count">2</data>
+  <data key="size">160</data>
+  <data key="types">java.lang.Object[]</data>
+  <data key="allocContext">java.util.Arrays.copyOf(Arrays.java:2760)\njava.util.Arrays.copyOf(Arrays.java:2734)\njava.util.Vector.ensureCapacityHelper(Vector.java:226)\njava.util.Vector.add(Vector.java:728)\n</data>
+</node>
+<node id="-5393481535801589438">
+  <data key="type">MathVector</data>
+  <data key="count">8</data>
+  <data key="size">32</data>
+  <data key="types">MathVector</data>
+</node>
+<node id="1342178691">
+  <data key="type">Cell</data>
+  <data key="count">1</data>
+  <data key="size">16</data>
+  <data key="types">Cell</data>
+  <data key="members">mass:70:edu.tufts.cs.eaftan.heapvis.parser.datastructures.DoubleValue@578088c0</data>
+  <data key="allocContext">Node.&lt;init&gt;(Node.java:5)\nCell.&lt;init&gt;(Cell.java:6)\nCell.makeCell(Cell.java:21)\nBody.loadTree(Body.java:99)\n</data>
+</node>
+<node id="-6743299296108368547">
+  <data key="type">Body</data>
+  <data key="count">2</data>
+  <data key="size">64</data>
+  <data key="types">Body</data>
+  <data key="allocContext">Node.&lt;init&gt;(Node.java:5)\nBody.&lt;init&gt;(Body.java:2)\nBody.makeBody(Body.java:15)\nBTree.createTestData(BTree.java:59)\n</data>
+</node>
+<node id="1342178695">
+  <data key="type">java.lang.Object[]</data>
+  <data key="count">1</data>
+  <data key="size">32</data>
+  <data key="types">java.lang.Object[]</data>
+  <data key="allocContext">java.util.Vector.&lt;init&gt;(Vector.java:111)\njava.util.Vector.&lt;init&gt;(Vector.java:124)\nCell.makeCell(Cell.java:23)\nBody.loadTree(Body.java:99)\n</data>
+</node>
+<node id="1342178694">
+  <data key="type">java.util.Vector</data>
+  <data key="count">1</data>
+  <data key="size">16</data>
+  <data key="types">java.util.Vector</data>
+  <data key="members">capacityIncrement:67:edu.tufts.cs.eaftan.heapvis.parser.datastructures.IntValue@5afec107elementCount:67:edu.tufts.cs.eaftan.heapvis.parser.datastructures.IntValue@37922221modCount:66:edu.tufts.cs.eaftan.heapvis.parser.datastructures.IntValue@b32e13d</data>
+  <data key="allocContext">java.util.AbstractCollection.&lt;init&gt;(AbstractCollection.java:49)\njava.util.AbstractList.&lt;init&gt;(AbstractList.java:59)\njava.util.Vector.&lt;init&gt;(Vector.java:107)\njava.util.Vector.&lt;init&gt;(Vector.java:124)\n</data>
+</node>
+<node id="-7838808624002153124">
+  <data key="type">double[]</data>
+  <data key="count">8</data>
+  <data key="size">192</data>
+  <data key="types">double[]</data>
+</node>
+<node id="1731242228777279753">
+  <data key="type">MathVector</data>
+  <data key="count">8</data>
+  <data key="size">32</data>
+  <data key="types">MathVector</data>
+</node>
+<node id="-6686023012001491976">
+  <data key="type">Body</data>
+  <data key="count">2</data>
+  <data key="size">64</data>
+  <data key="types">Body</data>
+  <data key="allocContext">Node.&lt;init&gt;(Node.java:5)\nBody.&lt;init&gt;(Body.java:2)\nBody.makeBody(Body.java:15)\nBTree.createTestData(BTree.java:59)\n</data>
+</node>
+<node id="1342178760">
+  <data key="type">double[]</data>
+  <data key="count">1</data>
+  <data key="size">24</data>
+  <data key="types">double[]</data>
+  <data key="members">2:70:edu.tufts.cs.eaftan.heapvis.parser.datastructures.DoubleValue@798fd9841:70:edu.tufts.cs.eaftan.heapvis.parser.datastructures.DoubleValue@211d0a4f0:70:edu.tufts.cs.eaftan.heapvis.parser.datastructures.DoubleValue@3ebfc8e0</data>
+  <data key="allocContext">MathVector.makeMathVector(MathVector.java:22)\nCell.hackcofm(Cell.java:60)\nBTree.makeTree(BTree.java:162)\nBTree.stepSystem(BTree.java:126)\n</data>
+</node>
+<node id="1342178759">
+  <data key="type">MathVector</data>
+  <data key="count">1</data>
+  <data key="size">4</data>
+  <data key="types">MathVector</data>
+  <data key="allocContext">MathVector.&lt;init&gt;(MathVector.java:7)\nMathVector.makeMathVector(MathVector.java:21)\nCell.hackcofm(Cell.java:60)\nBTree.makeTree(BTree.java:162)\n</data>
+</node>
+<node id="1342178783">
+  <data key="type">MathVector</data>
+  <data key="count">1</data>
+  <data key="size">4</data>
+  <data key="types">MathVector</data>
+  <data key="allocContext">MathVector.&lt;init&gt;(MathVector.java:7)\nMathVector.makeMathVector(MathVector.java:21)\nCell.hackcofm(Cell.java:60)\nCell.hackcofm(Cell.java:65)\n</data>
+</node>
+<node id="1342178784">
+  <data key="type">double[]</data>
+  <data key="count">1</data>
+  <data key="size">24</data>
+  <data key="types">double[]</data>
+  <data key="members">2:70:edu.tufts.cs.eaftan.heapvis.parser.datastructures.DoubleValue@188723801:70:edu.tufts.cs.eaftan.heapvis.parser.datastructures.DoubleValue@2c64f6cd0:70:edu.tufts.cs.eaftan.heapvis.parser.datastructures.DoubleValue@39617189</data>
+  <data key="allocContext">MathVector.makeMathVector(MathVector.java:22)\nCell.hackcofm(Cell.java:60)\nCell.hackcofm(Cell.java:65)\nCell.hackcofm(Cell.java:65)\n</data>
+</node>
+<node id="-1388308886962617624">
+  <data key="type">double[]</data>
+  <data key="count">64</data>
+  <data key="size">1536</data>
+  <data key="types">double[]</data>
+</node>
+<node id="4915312448163114736">
+  <data key="type">java.lang.Object[]</data>
+  <data key="count">6</data>
+  <data key="size">156</data>
+  <data key="types">java.lang.Object[]</data>
+  <data key="allocContext">java.util.Vector.&lt;init&gt;(Vector.java:111)\njava.util.Vector.&lt;init&gt;(Vector.java:124)\nCell.makeCell(Cell.java:23)\nBody.loadTree(Body.java:99)\n</data>
+</node>
+<node id="1342178825">
+  <data key="type">java.lang.String[]</data>
+  <data key="count">1</data>
+  <data key="size">0</data>
+  <data key="types">java.lang.String[]</data>
+  <data key="allocContext"></data>
+</node>
+<node id="1342178330">
+  <data key="type">BTree</data>
+  <data key="count">1</data>
+  <data key="size">24</data>
+  <data key="types">BTree</data>
+  <data key="members">rsize:70:edu.tufts.cs.eaftan.heapvis.parser.datastructures.DoubleValue@55e859c0</data>
+  <data key="allocContext">BTree.&lt;init&gt;(BTree.java:7)\nBTree.makeTreeX(BTree.java:28)\nBH.main(BH.java:34)\n</data>
+</node>
+<node id="-6406537963981526317">
+  <data key="type">java.util.Vector</data>
+  <data key="count">2</data>
+  <data key="size">32</data>
+  <data key="types">java.util.Vector</data>
+  <data key="allocContext">java.util.AbstractCollection.&lt;init&gt;(AbstractCollection.java:49)\njava.util.AbstractList.&lt;init&gt;(AbstractList.java:59)\njava.util.Vector.&lt;init&gt;(Vector.java:107)\njava.util.Vector.&lt;init&gt;(Vector.java:124)\n</data>
+</node>
+<node id="1342178398">
+  <data key="type">MathVector</data>
+  <data key="count">1</data>
+  <data key="size">4</data>
+  <data key="types">MathVector</data>
+  <data key="allocContext">MathVector.&lt;init&gt;(MathVector.java:7)\nMathVector.makeMathVector(MathVector.java:21)\nBTree.makeTreeX(BTree.java:29)\nBH.main(BH.java:34)\n</data>
+</node>
+<node id="1342178407">
+  <data key="type">double[]</data>
+  <data key="count">1</data>
+  <data key="size">24</data>
+  <data key="types">double[]</data>
+  <data key="members">2:70:edu.tufts.cs.eaftan.heapvis.parser.datastructures.DoubleValue@2d20cc561:70:edu.tufts.cs.eaftan.heapvis.parser.datastructures.DoubleValue@2d66a22b0:70:edu.tufts.cs.eaftan.heapvis.parser.datastructures.DoubleValue@5ca46701</data>
+  <data key="allocContext">MathVector.makeMathVector(MathVector.java:22)\nBTree.makeTreeX(BTree.java:29)\nBH.main(BH.java:34)\n</data>
+</node>
+<node id="-2055554282572060303">
+  <data key="type">double[]</data>
+  <data key="count">8</data>
+  <data key="size">192</data>
+  <data key="types">double[]</data>
+</node>
+<node id="-7012330734606513768">
+  <data key="type">MathVector</data>
+  <data key="count">64</data>
+  <data key="size">256</data>
+  <data key="types">MathVector</data>
+</node>
+<edge source="-5012855334518289960" target="1374192621643433549">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="1731242228777279753" target="-2055554282572060303">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="1342178330" target="-6406537963981526317">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="1342178783" target="1342178784">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="1342178759" target="1342178760">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="1342178694" target="1342178695">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="0" target="1342178330">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="-4518113060967046006" target="-7012330734606513768">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="1342178691" target="1342178783">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="4915312448163114736" target="1342178691">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="-6743299296108368547" target="-5393481535801589438">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="1342178695" target="-6686023012001491976">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="-5393481535801589438" target="-7838808624002153124">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="1342178631" target="1342178634">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="1342178631" target="1342178759">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="-6686023012001491976" target="1731242228777279753">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="1342178398" target="1342178407">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="1342178634" target="1342178635">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="1342178691" target="1342178694">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="1342178330" target="1342178398">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="8022358653743579549" target="-6686023012001491976">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="1342178330" target="1342178631">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="0" target="1342178330">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="4915312448163114736" target="-4518113060967046006">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="1374192621643433549" target="556296236881069008">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="-5012855334518289960" target="2816743482925311712">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="1342178635" target="-5012855334518289960">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="1342178635" target="-6743299296108368547">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="2816743482925311712" target="4915312448163114736">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="8022358653743579549" target="-4518113060967046006">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="0" target="1342178825">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="-6406537963981526317" target="8022358653743579549">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="-7012330734606513768" target="-1388308886962617624">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+<edge source="8022358653743579549" target="-6743299296108368547">
+  <data key="ownership">false</data>
+  <data key="pointer">true</data>
+</edge>
+</graph>
+</graphml>
