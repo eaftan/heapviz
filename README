@@ -1,7 +1,8 @@
 Java Heap Analyzer
 Eddie Aftandilian (eaftan@cs.tufts.edu)
 
-This is the front end to our heap visualization system, Heapviz.
+This is the front end to our heap visualization system, Heapviz 
+(http://www.cs.tufts.edu/research/redline/heapviz/).
 
 This program does the following:
 1) takes as input an HPROF heap dump file in binary format
