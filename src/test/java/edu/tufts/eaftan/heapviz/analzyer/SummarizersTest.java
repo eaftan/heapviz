@@ -23,9 +23,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import edu.tufts.eaftan.heapviz.analzyer.summarizehandler.SummarizeHandler;
+import edu.tufts.eaftan.heapviz.analzyer.summarizehandler.Vertex;
 import edu.tufts.eaftan.heapviz.summarizer.AllocSiteSummarizer;
 import edu.tufts.eaftan.heapviz.summarizer.IdentitySummarizer;
 import edu.tufts.eaftan.heapviz.summarizer.Softvis2010Summarizer;
@@ -39,6 +42,11 @@ import edu.tufts.eaftan.hprofparser.parser.HprofParser;
 public class SummarizersTest {
 
   private static final String hprofFileRelativePath = "java.hprof";
+
+  @Before
+  public void setUp() {
+    Vertex.clearIdsInUse();
+  }
 
   @Test
   public void allocSiteSummarizerDoesntCrash() throws Exception {

@@ -27,6 +27,8 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.util.*;
 
+import com.google.common.base.Preconditions;
+
 import edu.tufts.eaftan.heapviz.summarizer.*;
 import edu.tufts.eaftan.heapviz.util.DuplicateEdgeException;
 import edu.tufts.eaftan.heapviz.util.Graph;
@@ -118,7 +120,7 @@ public class SummarizeHandler extends NullRecordHandler {
   public SummarizeHandler2() {
     loadBlacklist("sun_blacklist.txt");
   }
-  */
+   */
 
   public SummarizeHandler(boolean doSummary, boolean printDomEdges,
       boolean printPtrEdges, Summarizer sum) {
@@ -128,10 +130,10 @@ public class SummarizeHandler extends NullRecordHandler {
     this.printPtrEdges = printPtrEdges;
 
     if(sum == null){
-    	this.summarizer = new Softvis2010Summarizer();
+      this.summarizer = new Softvis2010Summarizer();
     }
     else{
-    	this.summarizer = sum;
+      this.summarizer = sum;
 
     }
   }
@@ -387,7 +389,9 @@ public class SummarizeHandler extends NullRecordHandler {
       long objId = worklist.pop();
       if (!visited.contains(objId)) {
         Instance obj = instanceMap.get(objId);
-        assert(obj != null);
+
+        // TODO(eaftan): This is failing, figure out why.
+        //Preconditions.checkState(obj != null, "obj with id %s not found", objId);
 
         if (obj instanceof ObjectInstance) {
           ObjectInstance objInstance  = (ObjectInstance) obj;
@@ -479,7 +483,7 @@ public class SummarizeHandler extends NullRecordHandler {
     //for (Vertex to : dominators.keySet()) {
     //  Vertex from = dominators.get(to);
     //  if (!from.equals(to))
-     //   g.addOwnershipEdge(from, to, null);
+    //   g.addOwnershipEdge(from, to, null);
     //}
 
     // output to GraphML
@@ -540,6 +544,8 @@ public class SummarizeHandler extends NullRecordHandler {
       System.exit(1);
     } catch (URISyntaxException e) {
       // TODO(eaftan): better exception handling. we should never be calling System.exit.
+      System.err.println("URISyntaxException: " + e);
+      System.exit(1);
     }
 
   }
