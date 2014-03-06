@@ -35,34 +35,34 @@ import java.util.*;
 
 public class Graph<V, E> {
 
-  /* invariants: 
+  /* invariants:
    *   1) root must be in incidentEdges map
    */
-  // TODO: these might need to become sets or linked lists for faster 
+  // TODO: these might need to become sets or linked lists for faster
   // removal
   private HashMap<V, ArrayList<Edge<V, E>>> incidentEdges;
   //private V root;
   private int avgDegree;
   private int expectedVertices;
-  
-  
+
+
   //In an effort to make this as fast as possible,
   //this may not work correctly with mutable types for V,E
   public Graph<V,E> deepishCopy(){
 	  Graph<V,E> newGraph = new Graph<V,E>();
-	  
+
 	  for(V v: incidentEdges.keySet()){
 		  newGraph.incidentEdges.put(v, new ArrayList<Edge<V,E>>());
 		  for(Edge<V,E> e:   incidentEdges.get(v)){
 			  newGraph.incidentEdges.get(v).add(e);
 		  }
 	  }
-	  
+
 	  //newGraph.root = root;
 	  newGraph.avgDegree = avgDegree;
 	  newGraph.expectedVertices = expectedVertices;
-	  
-	  
+
+
 	  return newGraph;
   }
 
@@ -99,11 +99,17 @@ public class Graph<V, E> {
 
   /**
    * Add a vertex to the graph
-   * 
+   *
    * @param v The vertex to add
    * @return True if the vertex was added, false if not (already in the graph)
    */
   public boolean addVertex(V v) {
+
+    // TODO(eaftan): remove
+    if (v == null) {
+      System.out.println("Adding null vertex");
+    }
+
     assert(repOK());
 
     if (incidentEdges.containsKey(v))
@@ -112,16 +118,16 @@ public class Graph<V, E> {
     incidentEdges.put(v, new ArrayList<Edge<V, E>>(avgDegree));
     return true;
   }
-  
+
   /**
    * Remove a vertex from the graph, including all edges
    * that refer to it
-   *  
+   *
    * @param v The vertex to remove
    * @return True if the vertex was removed, false if not
    */
   public boolean removeVertex(V v) {
-    
+
     if (!incidentEdges.containsKey(v))
       return false;
 
@@ -140,10 +146,10 @@ public class Graph<V, E> {
         System.exit(1);
       }
     }
-    
+
     // remove vertex itself
     incidentEdges.remove(v);
-    
+
     assert(repOK());
     return true;
   }
@@ -155,14 +161,14 @@ public class Graph<V, E> {
    */
   public void addEdge(V from, V to, E data) throws DuplicateEdgeException {
     assert(repOK());
-    
+
     if (!incidentEdges.containsKey(from) || !incidentEdges.containsKey(to)) {
       System.err.println("Error: adding an edge to vertices that don't exist!");
       System.exit(1);
     }
-    
+
     Edge<V, E> newEdge = new Edge<V, E>(from, to, data, true, false);
-    
+
     boolean duplicate = false;
     for (Edge<V, E> e : incidentEdges.get(from)) {
       if (e.equalsToFromData(newEdge)) {
@@ -172,7 +178,7 @@ public class Graph<V, E> {
     }
     if (!duplicate)
       incidentEdges.get(from).add(newEdge);
-    
+
     duplicate = false;
     for (Edge<V, E> e : incidentEdges.get(to)) {
       if (e.equalsToFromData(newEdge)) {
@@ -182,23 +188,23 @@ public class Graph<V, E> {
     }
     if (!duplicate)
       incidentEdges.get(to).add(newEdge);
-   
+
     assert(repOK());
   }
-  
+
   /**
-   * Add an ownership edge to the graph.  If an edge with the same "from" 
+   * Add an ownership edge to the graph.  If an edge with the same "from"
    * and "to" vertices and data exists, replace it.  Otherwise add a new
    * ownership edge with "pointer" set to false.
    */
   public void addOwnershipEdge(V from, V to, E data) {
     assert(repOK());
-    
+
     if (!incidentEdges.containsKey(from) || !incidentEdges.containsKey(to)) {
       System.err.println("Error: adding an edge to vertices that don't exist!");
       System.exit(1);
     }
-    
+
     boolean found = false;
     for (Edge<V, E> e : incidentEdges.get(from)) {
       if (e.from.equals(from) && e.to.equals(to)) {
@@ -212,12 +218,12 @@ public class Graph<V, E> {
     }
     if (!found)
       incidentEdges.get(from).add(new Edge<V, E>(from, to, data, false, true));
-    
+
     found = false;
     for (Edge<V, E> e : incidentEdges.get(to)) {
       if (e.from.equals(from) && e.to.equals(to)) {
         if ((e.data == null && data == null) ||
-            e.data.equals(data)) {  
+            e.data.equals(data)) {
           e.ownership = true;
           found = true;
           break;
@@ -226,13 +232,13 @@ public class Graph<V, E> {
     }
     if (!found)
       incidentEdges.get(to).add(new Edge<V, E>(from, to, data, false, true));
-     
+
     assert(repOK());
   }
-  
+
   /**
    * Remove an edge from the adjacency list of this vertex
-   * 
+   *
    * @param vertex The vertex from which to remove this edge
    * @param edge The edge to remove
    */
@@ -242,7 +248,7 @@ public class Graph<V, E> {
       System.exit(1);
     }
   }
-  
+
   /**
    * Get the successors of a given vertex
    */
@@ -251,18 +257,18 @@ public class Graph<V, E> {
 
     HashSet<V> successors = new HashSet<V>(avgDegree/2);
     if(incidentEdges == null){
-    	System.err.println("incidentEdges is null, this should not happen!");    	
+    	System.err.println("incidentEdges is null, this should not happen!");
     }
     else if(incidentEdges.get(v) == null){
-    	System.err.println("incidentEdges.get(v) == null, " + v.toString());    	
+    	System.err.println("incidentEdges.get(v) == null, " + v.toString());
     }
-    
+
     for (Edge<V, E> e : incidentEdges.get(v)) {
       if (e.from.equals(v)) {
         successors.add(e.to);
       }
     }
-        
+
     return successors;
   }
 
@@ -278,13 +284,13 @@ public class Graph<V, E> {
         predecessors.add(e.from);
       }
     }
-        
+
     return predecessors;
   }
-  
+
   /**
    * Get all edges incident to a given vertex
-   * 
+   *
    * @param v The vertex whose edges we want
    * @return A list of Edges incident to v
    */
@@ -304,7 +310,7 @@ public class Graph<V, E> {
         edges.add(e);
       }
     }
-        
+
     return edges;
   }
 
@@ -320,45 +326,45 @@ public class Graph<V, E> {
         edges.add(e);
       }
     }
-        
+
     return edges;
   }
 
 
   /**
    * Get all vertices in the graph
-   * 
+   *
    * @return A Set containing all vertices in the graph
    */
   public Set<V> getVertices() {
     assert(repOK());
     return incidentEdges.keySet();
   }
-  
+
   /**
    * Get all edges in the graph
-   * 
+   *
    * @return A Set containing all edges in the graph
    */
   public Set<Edge<V, E>> getEdges() {
     assert(repOK());
-    
+
     HashSet<Edge<V, E>> edges = new HashSet<Edge<V, E>>(expectedVertices);
     for (V vertex : incidentEdges.keySet()) {
       edges.addAll(incidentEdges.get(vertex));
     }
     return edges;
   }
-  
+
   /**
    * Get the number of vertices in the graph
-   * 
+   *
    * @return The number of vertices in the graph
    */
   public int getNumVertices() {
     return incidentEdges.size();
   }
-  
+
   /**
    * Get the root node of the graph
    */
@@ -367,13 +373,13 @@ public class Graph<V, E> {
   //}
 
 
-  /** 
+  /**
    * Compute a postordering over the vertices in the graph
    */
   public List<V> computePostordering(V root) {
     assert(repOK());
     assert(root != null);
-    
+
     if (root == null) {
       System.err.println("No root defined for graph");
       System.exit(1);
@@ -383,7 +389,7 @@ public class Graph<V, E> {
     ArrayList<V> postordering = new ArrayList<V>(getNumVertices());
     HashSet<V> visited = new HashSet<V>(getNumVertices());
     Stack<StackElem> worklist = new Stack<StackElem>();
-    
+
     worklist.push(new StackElem(State.SCAN, root));
     while (!worklist.empty()) {
       StackElem curr = worklist.pop();
@@ -421,7 +427,7 @@ public class Graph<V, E> {
     for (int i=0; i<postorderToVertex.size(); i++)
       vertexToPostorder.put(postorderToVertex.get(i), i);
 
-    // for all nodes, b 
+    // for all nodes, b
     //   doms[b] <- undefined
     int[] doms = new int[getNumVertices()];
     for (int i=0; i<doms.length; i++)
@@ -463,7 +469,7 @@ public class Graph<V, E> {
 
           }
         }
-        
+
         if (doms[i] != new_idom) {
           doms[i] = new_idom;
           changed = true;

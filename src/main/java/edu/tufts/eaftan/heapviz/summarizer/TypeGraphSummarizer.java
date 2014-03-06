@@ -34,11 +34,14 @@ public class TypeGraphSummarizer implements Summarizer {
 
 		for(Vertex v : g.getVertices()){
 
-			if( m.get(v.types) == null){
-				m.put(v.types, new ArrayList<Vertex>());
-			}
+		  // TODO(eaftan): Remove check for v != null.  Why are there null vertices in the graph?
+		  if (v != null) {
+		    if (m.get(v.types) == null){
+		      m.put(v.types, new ArrayList<Vertex>());
+		    }
 
-			m.get(v.types).add(v);
+		    m.get(v.types).add(v);
+		  }
 		}
 
 		for(List<Vertex> vs: m.values()){

@@ -23,29 +23,29 @@ import edu.tufts.eaftan.heapviz.util.Edge;
 import edu.tufts.eaftan.heapviz.util.Graph;
 
 public class Render {
-  
+
   public static String dispDir = null;
   public static String dispGml = null;
-  
+
   /**
    * initializer
    */
   static {
     String fsep = System.getProperty("file.separator");
     dispDir = System.getProperty("user.dir") + fsep + "images" + fsep;  // working directory + "/images/"
-    
+
     // if dispDir does not exist, create it
     File dispDirFile = new File(dispDir);
-    if (!dispDirFile.exists()) 
+    if (!dispDirFile.exists())
       dispDirFile.mkdir();
-        
+
     dispGml = dispDir + "vis_heap$.xml";
   }
-  
-  
+
+
   public static String graphToGraphML(Graph<Vertex, String> g, String extraLabel,
       boolean printDomEdges, boolean printPtrEdges) {
-    
+
     try {
       if (extraLabel == null)
         extraLabel = "";
@@ -54,23 +54,23 @@ public class Render {
       computeGraphMLString(out, g, printDomEdges, printPtrEdges);
       out.close();
       return visgml.getCanonicalPath();
-      
+
     } catch (IOException e) {
       System.out.println("Unable to generate GraphML file: " + e);
       System.exit(1);
     }
-    
+
     return null;
-    
+
   }
-  
+
   /**
    * Compute the GraphML string for this graph.
-   * 
+   *
    * @return A string representing this graph in GraphML format
    */
   public static void computeGraphMLString(Writer out, Graph<Vertex, String> g,
-      boolean printDomEdges, boolean printPtrEdges) {    
+      boolean printDomEdges, boolean printPtrEdges) {
 
     try {
       // header
@@ -79,7 +79,7 @@ public class Render {
       out.write("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n");
       out.write("xsi:schemaLocation=\"http://graphml.graphdrawing.org/xmlns\n");
       out.write("http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\">\n\n");
-   
+
       // data schema
       out.write("<key id=\"type\" for=\"node\" attr.name=\"type\" attr.type=\"string\"/>\n");
       out.write("<key id=\"members\" for=\"node\" attr.name=\"members\" attr.type=\"string\"/>\n");
@@ -90,7 +90,7 @@ public class Render {
       out.write("<key id=\"collapsed\" for=\"node\" attr.name=\"collapsed\" attr.type=\"boolean\">\n");
       out.write("  <default>false</default>\n");
       out.write("</key>\n");
-  
+
       out.write("<key id=\"label\" for=\"edge\" attr.name=\"label\" attr.type=\"string\"/>\n");
       out.write("<key id=\"ownership\" for=\"edge\" attr.name=\"ownership\" attr.type=\"boolean\">\n");
       out.write("  <default>false</default>\n");
@@ -98,17 +98,20 @@ public class Render {
       out.write("<key id=\"pointer\" for=\"edge\" attr.name=\"pointer\" attr.type=\"boolean\">\n");
       out.write("  <default>true</default>\n");
       out.write("</key>\n\n");
-      
-      
+
+
       // start graph
       out.write("<graph edgedefault=\"directed\">\n\n");
-  
+
       // vertices
       Set<Vertex> vertices = g.getVertices();
       for (Vertex v : vertices) {
-        out.write(v.toGraphML());
+        // TODO(eaftan): remove this check, enforce invariant that no vertices are null
+        if (v != null) {
+          out.write(v.toGraphML());
+        }
       }
-      
+
       // edges
       Set<Edge<Vertex, String>> edges = g.getEdges();
       for (Edge<Vertex, String> e : edges) {
@@ -118,18 +121,18 @@ public class Render {
           out.write("\" target=\"");
           out.write(Long.toString(e.to.id));
           out.write("\">\n");
-          
+
           out.write("  <data key=\"ownership\">");
           out.write(String.valueOf(e.ownership));
           out.write("</data>\n");
-          
+
           out.write("  <data key=\"pointer\">");
           out.write(String.valueOf(e.pointer));
           out.write("</data>\n");
           out.write("</edge>\n");
-        }  
+        }
       }
-      
+
       out.write("</graph>\n</graphml>");
     } catch (IOException e) {
       System.err.println(e);

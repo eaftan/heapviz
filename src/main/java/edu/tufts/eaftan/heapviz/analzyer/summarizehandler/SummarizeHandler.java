@@ -37,6 +37,8 @@ import edu.tufts.eaftan.hprofparser.handler.NullRecordHandler;
 
 public class SummarizeHandler extends NullRecordHandler {
 
+  private static final String BLACKLIST = "/sun_blacklist.txt";
+
   /* Instance variables */
 
   /**
@@ -118,13 +120,13 @@ public class SummarizeHandler extends NullRecordHandler {
 
   /*
   public SummarizeHandler2() {
-    loadBlacklist("sun_blacklist.txt");
+    loadBlacklist(BLACKLIST);
   }
    */
 
   public SummarizeHandler(boolean doSummary, boolean printDomEdges,
       boolean printPtrEdges, Summarizer sum) {
-    loadBlacklist("sun_blacklist.txt");
+    loadBlacklist(BLACKLIST);
     this.doSummary = doSummary;
     this.printDomEdges = printDomEdges;
     this.printPtrEdges = printPtrEdges;
@@ -356,30 +358,35 @@ public class SummarizeHandler extends NullRecordHandler {
       if (keepRoot(r)) {
 
         // find vertex that is target of the edge
-        Vertex target = findOrCreateVertex(objIdToVertex, r.targetId);
-
-        // create edge
-        /* TODO: we may want to distinguish between stack roots
-         * and static roots in edges
-         */
-        String label = null;
-        if (r instanceof RootJavaFrame) {
-          RootJavaFrame rjf = (RootJavaFrame)r;
-          label = "rootJavaFrame-" + rjf.threadSerialNum + "-" + rjf.frameNum;
-        } else if (r instanceof RootStatic) {
-          RootStatic rs = (RootStatic)r;
-          /* TODO: is this really how we want to represent this?  Shouldn't it really
-           * be a node with the class name and edges with the static field names? */
-          label = classIdMap.get(rs.classObjId).className + "." + stringMap.get(rs.fieldNameStringId);
-        }
-        g.addVertex(target);
+        Vertex target;
         try {
-          g.addEdge(root, target, label);
-        } catch (DuplicateEdgeException e) {
-          System.err.println("Tried to add a duplicate edge from " + root + " to " + target);
-        }
+          target = findOrCreateVertex(objIdToVertex, r.targetId);
 
-        worklist.push(r.targetId);
+          // create edge
+          /* TODO: we may want to distinguish between stack roots
+           * and static roots in edges
+           */
+          String label = null;
+          if (r instanceof RootJavaFrame) {
+            RootJavaFrame rjf = (RootJavaFrame)r;
+            label = "rootJavaFrame-" + rjf.threadSerialNum + "-" + rjf.frameNum;
+          } else if (r instanceof RootStatic) {
+            RootStatic rs = (RootStatic)r;
+            /* TODO: is this really how we want to represent this?  Shouldn't it really
+             * be a node with the class name and edges with the static field names? */
+            label = classIdMap.get(rs.classObjId).className + "." + stringMap.get(rs.fieldNameStringId);
+          }
+          g.addVertex(target);
+          try {
+            g.addEdge(root, target, label);
+          } catch (DuplicateEdgeException e) {
+            System.err.println("Tried to add a duplicate edge from " + root + " to " + target);
+          }
+
+          worklist.push(r.targetId);
+        } catch (InvalidVertexException e) {
+          // TODO(eaftan): Log object id
+        }
       }
     }
     visited.add(0L);
@@ -414,19 +421,24 @@ public class SummarizeHandler extends NullRecordHandler {
                       @SuppressWarnings("unchecked")
                       Value<Long> longValue = (Value<Long>) value;
                       if (longValue.value != 0) {   // reference is non-null
-                        Vertex from = findOrCreateVertex(objIdToVertex, objId);
-                        Vertex to = findOrCreateVertex(objIdToVertex, longValue.value);
-                        if (from == null || to == null) {
-                          System.err.println("Cannot find endpoints of edge!");
-                          System.exit(1);
-                        }
-                        g.addVertex(to);
                         try {
-                          g.addEdge(from, to, fieldName);
-                        } catch (DuplicateEdgeException e) {
-                          System.err.println("Tried to add a duplicate edge from " + from + " to " + to);
+                          Vertex from = findOrCreateVertex(objIdToVertex, objId);
+                          Vertex to = findOrCreateVertex(objIdToVertex, longValue.value);
+
+                          if (from == null || to == null) {
+                            System.err.println("Cannot find endpoints of edge!");
+                            System.exit(1);
+                          }
+                          g.addVertex(to);
+                          try {
+                            g.addEdge(from, to, fieldName);
+                          } catch (DuplicateEdgeException e) {
+                            System.err.println("Tried to add a duplicate edge from " + from + " to " + to);
+                          }
+                          worklist.push(longValue.value);
+                        } catch (InvalidVertexException e) {
+                          // TODO(eaftan): Log invalid object id
                         }
-                        worklist.push(longValue.value);
                       }
                     }
                   }
@@ -449,14 +461,18 @@ public class SummarizeHandler extends NullRecordHandler {
             for (int i=0; i<arrayInstance.elems.length; i++) {
               long ref = arrayInstance.elems[i];
               if (ref != 0) {
-                Vertex from = findOrCreateVertex(objIdToVertex, objId);
-                Vertex to = findOrCreateVertex(objIdToVertex, ref);
-                g.addVertex(to);
-                // use array index as edge label
                 try {
-                  g.addEdge(from, to, Long.toString(i));
-                } catch (DuplicateEdgeException e) {
-                  System.err.println("Tried to add a duplicate edge from " + from + " to " + to);
+                  Vertex from = findOrCreateVertex(objIdToVertex, objId);
+                  Vertex to = findOrCreateVertex(objIdToVertex, ref);
+                  g.addVertex(to);
+                  // use array index as edge label
+                  try {
+                    g.addEdge(from, to, Long.toString(i));
+                  } catch (DuplicateEdgeException e) {
+                    System.err.println("Tried to add a duplicate edge from " + from + " to " + to);
+                  }
+                } catch (InvalidVertexException e) {
+                  // TODO(eaftan): log object id
                 }
                 worklist.push(ref);
               }
@@ -503,8 +519,9 @@ public class SummarizeHandler extends NullRecordHandler {
   private void loadBlacklist(String blacklistFileName) {
     // TODO(eaftan): try-with-resources to close BufferedReader properly
     try {
-      File blackList = new File(ClassLoader.getSystemResource(blacklistFileName).toURI());
-      BufferedReader in = new BufferedReader(new FileReader(blackList));
+      InputStream blackListStream = getClass().getResourceAsStream(blacklistFileName);
+      //File blackList = new File(ClassLoader.getSystemResource(blacklistFileName).toURI());
+      BufferedReader in = new BufferedReader(new InputStreamReader(blackListStream));
       String line;
       while ((line = in.readLine()) != null) {
         line = line.trim();
@@ -541,10 +558,6 @@ public class SummarizeHandler extends NullRecordHandler {
       System.err.println("File not found: " + e);
     } catch (IOException e) {
       System.err.println("IOException: " + e);
-      System.exit(1);
-    } catch (URISyntaxException e) {
-      // TODO(eaftan): better exception handling. we should never be calling System.exit.
-      System.err.println("URISyntaxException: " + e);
       System.exit(1);
     }
 
@@ -651,7 +664,8 @@ public class SummarizeHandler extends NullRecordHandler {
    * either a new Vertex representing the specified object or an already
    * existing vertex that was in the map.
    */
-  private Vertex findOrCreateVertex(Map<Long, Vertex> objIdToVertex, long objId) {
+  private Vertex findOrCreateVertex(Map<Long, Vertex> objIdToVertex, long objId)
+      throws InvalidVertexException {
     Vertex target = objIdToVertex.get(objId);
     if (target == null) {
       if (instanceMap.containsKey(objId)) {
@@ -663,7 +677,7 @@ public class SummarizeHandler extends NullRecordHandler {
         target = classToVertex(c);
         objIdToVertex.put(objId, target);
       } else {
-        System.err.println("Invalid object id " + objId);
+        throw new InvalidVertexException("No object or class exists with id " + objId);
       }
     }
 

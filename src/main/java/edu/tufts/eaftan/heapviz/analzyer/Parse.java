@@ -100,8 +100,8 @@ public class Parse {
 	    }
     }
     else{
-    	System.out.println("No summarizer specified; defaulting to SoftVis2010.");
-    	summarizer = new Softvis2010Summarizer();
+    	System.out.println("No summarizer specified; defaulting to TypeGraph.");
+    	summarizer = new TypeGraphSummarizer();
     }
 
     RecordHandler handler = new SummarizeHandler(doSummary, printDomEdges, printPtrEdges, summarizer);
